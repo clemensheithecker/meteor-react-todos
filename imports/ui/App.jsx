@@ -5,7 +5,10 @@ import { TasksCollection } from "/imports/api/TasksCollection.js";
 import { TaskForm } from "./TaskForm";
 
 export const App = () => {
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  const tasks = useTracker(() =>
+    // Show newest tasks first
+    TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch()
+  );
 
   return (
     <section>
