@@ -1,8 +1,140 @@
 body {
-  padding: 10px;
   font-family: sans-serif;
+  background-color: #f0f9ff;
+  background-image: linear-gradient(to bottom, #f0f9ff, #eff6ff 100%);
+  background-attachment: fixed;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin: 0;
+
+  font-size: 1rem;
+}
+
+button {
+  border-radius: 0.25rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 2rem);
+  max-width: 768px;
+  margin: auto;
+}
+
+.app-header {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: inherit;
+}
+
+header {
+  padding: 1rem;
+  position: relative;
+}
+
+.app-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-bar h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  display: inline-block;
+}
+
+.app-bar p {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
 }
 
 .task-form {
-  margin-top: 1rem;
+  display: flex;
+  margin: 1rem;
+}
+
+.task-form > input {
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  background: rgba(229, 229, 229, 0.95);
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  margin-right: 1rem;
+  border-radius: 0.25rem;
+}
+
+.task-form > input:focus {
+  outline: 0;
+}
+
+.task-form > button {
+  min-width: 100px;
+  height: 95%;
+  background-color: #315481;
+}
+
+.tasks {
+  list-style-type: none;
+  padding-inline-start: 0;
+  padding: 0 1rem;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.tasks > li {
+  display: flex;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  align-items: center;
+}
+
+.tasks > li > span {
+  flex-grow: 1;
+  margin-left: 0.5rem;
+}
+
+.tasks > li > button {
+  justify-self: flex-end;
+  background-color: #ff3046;
 }
