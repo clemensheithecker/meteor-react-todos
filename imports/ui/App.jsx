@@ -12,6 +12,8 @@ const toggleChecked = ({ _id, isChecked }) => {
   });
 };
 
+const deleteTask = ({ _id }) => TasksCollection.remove(_id);
+
 export const App = () => {
   const tasks = useTracker(() =>
     // Show newest tasks first
@@ -26,7 +28,12 @@ export const App = () => {
 
       <ul>
         {tasks.map((task) => (
-          <Task key={task._id} task={task} onCheckboxClick={toggleChecked} />
+          <Task
+            key={task._id}
+            task={task}
+            onCheckboxClick={toggleChecked}
+            onDeleteClick={deleteTask}
+          />
         ))}
       </ul>
     </section>
