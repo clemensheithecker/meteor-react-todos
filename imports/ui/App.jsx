@@ -1,7 +1,8 @@
 import React from "react";
 import { useTracker } from "meteor/react-meteor-data";
-import { TasksCollection } from "/imports/api/TasksCollection.js";
 import { Task } from "./Task.jsx";
+import { TasksCollection } from "/imports/api/TasksCollection.js";
+import { TaskForm } from "./TaskForm";
 
 export const App = () => {
   const tasks = useTracker(() => TasksCollection.find({}).fetch());
@@ -9,6 +10,9 @@ export const App = () => {
   return (
     <section>
       <h1>To-Dos</h1>
+
+      <TaskForm />
+
       <ul>
         {tasks.map((task) => (
           <Task key={task._id} task={task} />
