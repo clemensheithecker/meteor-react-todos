@@ -38,12 +38,23 @@ export const App = () => {
     }).fetch()
   );
 
+  // Count the number of uncompleted tasks
+  const pendingTasksCount = useTracker(() =>
+    TasksCollection.find(hideCompletedFilter).count()
+  );
+
+  // If pendingsTasksCount is not zero, set the pendingTasksTitle to the
+  // pendingTasksCount; otherwise set it to an empty string
+  const pendingTasksTitle = `${
+    pendingTasksCount ? `(${pendingTasksCount})` : ""
+  }`;
+
   return (
     <div className="app">
       <header>
         <div className="app-bar">
           <div className="app-header">
-            <h1>To-Dos</h1>
+            <h1>To-Dos {pendingTasksTitle}</h1>
             <p>{convertTime(new Date())}</p>
           </div>
         </div>
