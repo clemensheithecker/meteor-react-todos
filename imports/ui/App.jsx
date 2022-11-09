@@ -27,6 +27,8 @@ const convertTime = (time) => {
 export const App = () => {
   const user = useTracker(() => Meteor.user());
 
+  const logout = () => Meteor.logout();
+
   // hideCompleted = value of state; sethideCompleted = setter function to
   // update the state
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -77,6 +79,9 @@ export const App = () => {
               <Fragment>
                 <h1>To-Dos {pendingTasksTitle}</h1>
                 <p>{convertTime(new Date())}</p>
+                <div className="user" onClick={logout}>
+                  {user.username} (Log Out)
+                </div>
               </Fragment>
             ) : (
               <h1>Log In</h1>

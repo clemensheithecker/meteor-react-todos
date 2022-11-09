@@ -186,3 +186,14 @@ header {
 .login-form > div > button {
   background-color: #62807e;
 }
+
+.user {
+  display: flex;
+
+  align-self: flex-end;
+
+  margin: 0.75rem 0 0;
+  font-weight: bold;
+  color: #075985;
+  cursor: pointer;
+}
