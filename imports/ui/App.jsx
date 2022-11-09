@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTracker } from "meteor/react-meteor-data";
 import { Task } from "./Task.jsx";
 import { TasksCollection } from "/imports/api/TasksCollection.js";
@@ -23,9 +23,19 @@ const convertTime = (time) => {
 };
 
 export const App = () => {
+  // hideCompleted = value of state; sethideCompleted = setter function to
+  // update the state
+  const [hideCompleted, setHideCompleted] = useState(false);
+
+  const hideCompletedFilter = { isChecked: { $ne: true } };
+
   const tasks = useTracker(() =>
-    // Show newest tasks first
-    TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch()
+    // If hideCompleted === True, only show tasks with
+    // isChecked property !== true
+    TasksCollection.find(hideCompleted ? hideCompletedFilter : {}, {
+      // Show newest tasks first
+      sort: { createdAt: -1 },
+    }).fetch()
   );
 
   return (
@@ -40,6 +50,12 @@ export const App = () => {
       </header>
       <main className="main">
         <TaskForm />
+
+        <div className="filter">
+          <button onClick={() => setHideCompleted(!hideCompleted)}>
+            {hideCompleted ? "Show All" : "Hide Completed"}
+          </button>
+        </div>
 
         <ul className="tasks">
           {tasks.map((task) => (
