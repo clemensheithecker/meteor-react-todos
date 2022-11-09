@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { Meteor } from "meteor/meteor";
+import React, { useState, Fragment } from "react";
 import { useTracker } from "meteor/react-meteor-data";
-import { Task } from "./Task.jsx";
-import { TasksCollection } from "/imports/api/TasksCollection.js";
+import { Task } from "./Task";
+import { TasksCollection } from "/imports/api/TasksCollection";
 import { TaskForm } from "./TaskForm";
+import { LoginForm } from "./LoginForm";
 
 const toggleChecked = ({ _id, isChecked }) => {
   TasksCollection.update(_id, {
@@ -23,6 +25,8 @@ const convertTime = (time) => {
 };
 
 export const App = () => {
+  const user = useTracker(() => Meteor.user());
+
   // hideCompleted = value of state; sethideCompleted = setter function to
   // update the state
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -54,30 +58,42 @@ export const App = () => {
       <header>
         <div className="app-bar">
           <div className="app-header">
-            <h1>To-Dos {pendingTasksTitle}</h1>
-            <p>{convertTime(new Date())}</p>
+            {user ? (
+              <Fragment>
+                <h1>To-Dos {pendingTasksTitle}</h1>
+                <p>{convertTime(new Date())}</p>
+              </Fragment>
+            ) : (
+              <h1>Log In</h1>
+            )}
           </div>
         </div>
       </header>
       <main className="main">
-        <TaskForm />
+        {user ? (
+          <Fragment>
+            <TaskForm />
 
-        <div className="filter">
-          <button onClick={() => setHideCompleted(!hideCompleted)}>
-            {hideCompleted ? "Show All" : "Hide Completed"}
-          </button>
-        </div>
+            <div className="filter">
+              <button onClick={() => setHideCompleted(!hideCompleted)}>
+                {hideCompleted ? "Show All" : "Hide Completed"}
+              </button>
+            </div>
 
-        <ul className="tasks">
-          {tasks.map((task) => (
-            <Task
-              key={task._id}
-              task={task}
-              onCheckboxClick={toggleChecked}
-              onDeleteClick={deleteTask}
-            />
-          ))}
-        </ul>
+            <ul className="tasks">
+              {tasks.map((task) => (
+                <Task
+                  key={task._id}
+                  task={task}
+                  onCheckboxClick={toggleChecked}
+                  onDeleteClick={deleteTask}
+                />
+              ))}
+            </ul>
+          </Fragment>
+        ) : (
+          <LoginForm />
+        )}
       </main>
     </div>
   );
