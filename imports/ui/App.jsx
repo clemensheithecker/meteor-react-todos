@@ -33,19 +33,34 @@ export const App = () => {
 
   const hideCompletedFilter = { isChecked: { $ne: true } };
 
-  const tasks = useTracker(() =>
+  const userFilter = user ? { userId: user._id } : {};
+
+  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
+
+  const tasks = useTracker(() => {
+    if (!user) {
+      return [];
+    }
+
     // If hideCompleted === True, only show tasks with
-    // isChecked property !== true
-    TasksCollection.find(hideCompleted ? hideCompletedFilter : {}, {
-      // Show newest tasks first
-      sort: { createdAt: -1 },
-    }).fetch()
-  );
+    // isChecked property !== true for the logged-in user
+    return TasksCollection.find(
+      hideCompleted ? pendingOnlyFilter : userFilter,
+      {
+        // Show newest tasks first
+        sort: { createdAt: -1 },
+      }
+    ).fetch();
+  });
 
   // Count the number of uncompleted tasks
-  const pendingTasksCount = useTracker(() =>
-    TasksCollection.find(hideCompletedFilter).count()
-  );
+  const pendingTasksCount = useTracker(() => {
+    if (!user) {
+      return 0;
+    }
+
+    return TasksCollection.find(hideCompletedFilter).count();
+  });
 
   // If pendingsTasksCount is not zero, set the pendingTasksTitle to the
   // pendingTasksCount; otherwise set it to an empty string
@@ -72,7 +87,7 @@ export const App = () => {
       <main className="main">
         {user ? (
           <Fragment>
-            <TaskForm />
+            <TaskForm user={user} />
 
             <div className="filter">
               <button onClick={() => setHideCompleted(!hideCompleted)}>
