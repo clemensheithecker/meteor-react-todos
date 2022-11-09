@@ -80,7 +80,7 @@ export const App = () => {
                 <h1>To-Dos {pendingTasksTitle}</h1>
                 <p>{convertTime(new Date())}</p>
                 <div className="user" onClick={logout}>
-                  {user.username} (Log Out)
+                  {user.username || user.profile.name} (Log Out)
                 </div>
               </Fragment>
             ) : (

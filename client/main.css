@@ -197,3 +197,18 @@ header {
   color: #075985;
   cursor: pointer;
 }
+
+.github-btn {
+  border: 1px solid #e1e5f0;
+  background-color: #fff;
+  width: 16rem;
+  margin: 0 auto 1rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.github-btn > div {
+  margin-left: 0.25rem;
+}
