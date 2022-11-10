@@ -84,7 +84,7 @@ header {
 
 .task-form {
   display: flex;
-  margin: 1rem;
+  padding: 1rem;
 }
 
 .task-form > input {
@@ -111,11 +111,9 @@ header {
 
 .tasks {
   list-style-type: none;
-  margin: 1rem 0;
   margin-block-end: 0;
   margin-block-start: 0;
-  padding: 0 1rem;
-  padding-inline-start: 0;
+  padding: 1rem;
 }
 
 .tasks > li {
